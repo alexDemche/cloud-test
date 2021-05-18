@@ -56,7 +56,7 @@ jobs:
               uses: google-github-actions/deploy-cloudrun@main
               with:
                 service: test1 
-                image: gcr.io/my-playground-314114/cloud-test
+                image: gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SH
                 credentials: ${{ secrets.GCP_SA_KEY }}
 
             - name: Use Output
