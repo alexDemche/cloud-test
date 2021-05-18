@@ -52,9 +52,12 @@ jobs:
                   gcloud builds submit -t gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA
             # Deploy image to Cloud Run
             - name: Deploy to Cloud Run
-              run: |-
-                gcloud run deploy $SERVICE \
-                  --region $REGION \
-                  --image gcr.io/$PROJECT_ID/$SERVICE \
-                  --platform managed \
-                  --set-env-vars NAME="Hello World"
+              id: deploy
+              uses: google-github-actions/deploy-cloudrun@main
+              with:
+                service: hello-cloud-run 
+                image: gcr.io/cloudrun/hello
+                credentials: ${{ secrets.GCP_SA_KEY }}
+
+            - name: Use Output
+              run: curl "${{ steps.deploy.outputs.url }}"
