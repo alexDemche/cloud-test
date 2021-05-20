@@ -28,10 +28,10 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v1
               
-            - id: deploy
+            - id: Deploy
               uses: google-github-actions/deploy-appengine@main
               with:
-                credentials: ${{ secrets.GCP_CREDENTIALS }}
+                credentials: ${{ secrets.GCP_SA_KEY }}
 
             # Example of using the output
             - id: test
